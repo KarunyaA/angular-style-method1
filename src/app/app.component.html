@@ -1,0 +1,15 @@
+<!-- single highlight -->
+<h2>Single Highlight</h2>
+<ng-container>{{singleString | slice:0:highlightStart}}</ng-container>
+<span class="styled_text">{{singleString | slice:highlightStart:highlightStart+highlightLength}}</span>
+<ng-container>{{singleString | slice:highlightStart+highlightLength:singleString.length}}</ng-container>
+
+<!-- multiple highlights -->
+<h2>Multiple Highlights</h2>
+<ul>
+  <li *ngFor="let textString of textStrings">
+    <ng-container *ngFor="let stylePosition of stylePositions; index as i">
+      <ng-container *ngIf="i==0">{{textString | slice:0:stylePositions[0][0]}}</ng-container><ng-container *ngIf="i!=0">{{textString | slice:stylePositions[i-1][0]+stylePositions[i-1][1]:stylePositions[i][0]}}</ng-container><span class="styled_text">{{textString | slice:stylePositions[i][0]:stylePositions[i][0]+stylePositions[i][1]}}</span><ng-container *ngIf="i==stylePositions.length-1">{{textString | slice:stylePositions[i][0]+stylePositions[i][1]:textString.length}}</ng-container>
+    </ng-container>
+  </li>
+</ul>
